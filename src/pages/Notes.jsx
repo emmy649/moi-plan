@@ -17,8 +17,14 @@ const formatDate = (date) => {
 
 export default function Notes() {
   const [notes, setNotes] = useState(() => {
-    const saved = localStorage.getItem('notes');
-    return saved ? JSON.parse(saved) : [];
+    let saved = [];
+try {
+  saved = JSON.parse(localStorage.getItem('notes')) || [];
+} catch (e) {
+  saved = [];
+}
+return saved;
+
   });
 
   const [showModal, setShowModal] = useState(false);
@@ -73,6 +79,10 @@ export default function Notes() {
       </Link>
 
       <h2 className="text-xl font italic text-center mb-10">Какво ще си запишеш... </h2>
+        
+      <div className="text-center text-sm text-gray-400 italic">
+  {notes.length === 0 && "Все още нямаш бележки. Натисни + за да започнеш."}
+</div>
 
       <div className="flex flex-col gap-4">
         {notes.map((note) => (
