@@ -17,13 +17,15 @@ const formatDate = (date) => {
 
 export default function Notes() {
   const [notes, setNotes] = useState(() => {
-    let saved = [];
-try {
-  saved = JSON.parse(localStorage.getItem('notes')) || [];
-} catch (e) {
-  saved = [];
-}
-return saved;
+    let savedNotes = [];
+    try {
+      const stored = localStorage.getItem('notes');
+      savedNotes = stored ? JSON.parse(stored) : [];
+    } catch (e) {
+      savedNotes = [];
+    }
+    return savedNotes;
+    
 
   });
 
@@ -81,7 +83,12 @@ return saved;
       <h2 className="text-xl font italic text-center mb-10">Какво ще си запишеш... </h2>
         
       <div className="text-center text-sm text-gray-400 italic">
-  {notes.length === 0 && "Все още нямаш бележки. Натисни + за да започнеш."}
+      {notes.length === 0 && (
+  <p className="text-sm italic text-gray-400 mt-4">
+    Все още няма бележки. Натисни +, за да добавиш първата.
+  </p>
+)}
+
 </div>
 
       <div className="flex flex-col gap-4">
