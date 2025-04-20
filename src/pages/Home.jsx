@@ -25,6 +25,7 @@ function Home() {
             label="Бележки"
           />
         </div>
+        
       </div>
     </div>
   );
